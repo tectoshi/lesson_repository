@@ -19,11 +19,10 @@ $arr = [
     'r2' => ['c1' => 7, 'c2' => 8, 'c3' => 12],
     'r3' => ['c1' => 25, 'c2' => 9, 'c3' => 130]
 ];
-$columnSum = [
-    'c1' => array_sum(array_column($arr,'c1')),
-    'c2' => array_sum(array_column($arr,'c2')),
-    'c3' => array_sum(array_column($arr,'c3'))
-];
+$columnSum = [];
+foreach($arr['r1'] as $c => $num){
+  $columnSum = array_merge($columnSum,array($c => array_sum(array_column($arr,$c)))); 
+}
 $allSum = 0;
 ?>
 <!DOCTYPE html>
