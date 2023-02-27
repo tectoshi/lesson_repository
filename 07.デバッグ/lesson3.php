@@ -132,6 +132,7 @@ class Battle
         return $this->judge();
     }
 }
+
 if (! empty($_POST)) {
     $lastName         = $_POST['last_name'];
     $firstName        = $_POST['first_name'];
