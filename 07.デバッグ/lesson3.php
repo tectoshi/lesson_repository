@@ -17,7 +17,7 @@ if (! isset($_SESSION['result'])) {
 
 class Player
 {
-    public function jankenConverter($choice)
+    public function jankenConverter(int $choice)
     {
         $janken = '';
         switch ($choice) {
@@ -42,7 +42,7 @@ class Me extends Player
     private $name;
     private $choice;
 
-    public function __construct($lastName, $firstName, $choice)
+    public function __construct(string $lastName, string $firstName, int $choice)
     {
         $this->name   = $lastName.$firstName;
         $this->choice = $choice;
@@ -77,7 +77,7 @@ class Battle
 {
     private $first;
     private $second;
-    public function __construct($me, $enemy)
+    public function __construct(Me $me, Enemy $enemy)
     {
         $this->first  = $me->getChoice();
         $this->second = $enemy->getChoice();
