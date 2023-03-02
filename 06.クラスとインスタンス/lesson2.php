@@ -24,8 +24,8 @@ require 'lesson1.php';
 // getWeight()
 // 体重を返す
 class Patient extends Person{
-  public float $height;
-  public float $weight;
+  private float $height;
+  private float $weight;
 
   function __construct($name, $age, $gender, $height, $weight){
     $this->name = $name;
@@ -35,13 +35,13 @@ class Patient extends Person{
     $this->weight = $weight;
   }
   function calculateStandardWeight(){
-    echo "平均体重は".$this->height ** 2 *22 . 'kgです。';
+    return $this->height ** 2 *22;
   }
   function getHeight(){
-    echo $this->name."さんの身長は". $this->height."mなので";
+    return $this->height;
   }
   function getWeight(){
-    echo "現在の体重は".$this->weight."kgです。";
+    return $this->weight;
   }
 }
 // クラスが完成したら適当なインスタンスを生成し、
@@ -50,8 +50,6 @@ class Patient extends Person{
 // 〇〇さんの身長は〇〇mなので平均体重は〇〇kgです。 現在の体重は〇〇kgです。
 
 $yamamoto = new Patient("山本", 33, "男", 1.78, 74);
-$yamamoto->getHeight();
-$yamamoto->calculateStandardWeight();
-$yamamoto->getWeight();
 
 
+echo $yamamoto->name."さんの身長は". $yamamoto->getHeight()."mなので平均体重は". $yamamoto->calculateStandardWeight(). "kgです。 現在の体重は". $yamamoto->getWeight()."kgです。";
