@@ -9,6 +9,8 @@ SELECT * FROM `countries` WHERE continent = 'Europe' ;
 -- 問3
 -- ヨーロッパ以外に属する国をすべて抽出してください。
 SELECT * FROM `countries` WHERE NOT continent = 'Europe' ;
+もしくは
+SELECT * FROM `countries` WHERE continent != 'Europe' ;
 
 -- 問4
 -- 人口が10万人以上の国をすべて抽出してください。
@@ -111,7 +113,11 @@ SELECT celebrities.name,countries.name,countrylanguages.language FROM celebritie
 
 -- 問29
 -- 全ての有名人の名前と国名をテーブル結合せずに出力してください。
-SELECT celebrities.name,countries.name AS '国名' FROM celebrities,countries WHERE celebrities.country_code = countries.code;
+SELECT name,
+  (SELECT name 
+   FROM countries
+   WHERE code = celebrities.country_code) AS '国名'
+FROM celebrities;
 
 -- 問30
 -- 最年長が50歳以上かつ最年少が30歳以下の国を表示させてください。
@@ -120,7 +126,23 @@ SELECT country_code,MAX(ce.age),MIN(ce.age) FROM celebrities AS ce WHERE country
 -- 問31
 -- 1991年生まれと、1981年生まれの有名人が何人いるか調べてください。ただし、日付関数は使用せず、UNION句を使用してください。
 SELECT '1991' AS '誕生年',count(*) AS '人数' FROM celebrities WHERE DATE_FORMAT(birth,'%Y') = 1991 UNION SELECT '1981' AS '誕生年',count(*) AS '人数' FROM celebrities WHERE DATE_FORMAT(birth,'%Y') = 1981;
-
+もしくは
+SELECT
+	'1991年' AS '誕生年',
+	COUNT(*) AS '人数'
+FROM
+	celebrities
+WHERE
+	birth LIKE '1991%'
+UNION
+SELECT
+	'1981年' AS '誕生年',
+	COUNT(*) AS '人数'
+FROM
+	celebrities
+WHERE
+	birth LIKE '1981%'
+;
 -- 問32
 -- 有名人の出身国の平均年齢を高い方から順に表示してください。ただし、FROM句はcountriesテーブルとしてください。
 SELECT countries.name AS '国名', AVG(celebrities.age) AS '平均年齢' FROM `countries` JOIN celebrities ON countries.code = celebrities.country_code GROUP BY country_code ORDER BY AVG(celebrities.age) DESC;
