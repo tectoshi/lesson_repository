@@ -9,22 +9,10 @@ class Contact extends Db {
     /**
      * playersテーブルからすべてデータを取得（20件ごと）
      */
-    public function findAll($page = 0):Array {
-        $sql = 'SELECT';
-        $sql .= ' players.id,';
-        $sql .= ' players.uniform_num,';
-        $sql .= ' players.position,';
-        $sql .= ' players.name as player_name,';
-        $sql .= ' players.club,';
-        $sql .= ' players.birth,';
-        $sql .= ' players.height,';
-        $sql .= ' players.weight,';
-        $sql .= ' countries.name as country_name';
-        $sql .= ' FROM players';
-        $sql .= ' JOIN countries ON players.country_id = countries.id';
-        $sql .= ' WHERE players.del_flg = 0';
-        $sql .= ' LIMIT 20 OFFSET '.(20 * $page);
-        $sth = $this->dbh->prepare($sql);
+    public function findAll(){
+        $sql = 'SELECT name, kana, tel, email, body FROM contacts';
+        // $sql .= ' LIMIT 20 OFFSET '.(20 * $page);
+        $sth = $this->dbh->query($sql);
         $sth->execute();
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
         return $result;

@@ -5,6 +5,8 @@ if(!empty($_SESSION)){
     $e = new ContactController();
     $e = $e->validation();
 }
+$contactAll = new Contact();
+$contacts = $contactAll->findAll();
 ?>
 
 <!DOCTYPE html>
@@ -32,9 +34,27 @@ if(!empty($_SESSION)){
                 <label>メールアドレス</label><br>
                 <input type="text" name="email" class="email" id="email" value="<?php if( !empty($_SESSION['email']) ){ echo $_SESSION['email']; } ?>"/><br>
                 <label>お問い合わせ内容</label><br>
-                <textarea name="body" rows="10" cols="50" class="body" id="inquiry"><?php if( !empty($_SESSION['body']) ){ echo $_SESSION['body']; } ?></textarea><br>
+                <textarea name="body" rows="5" cols="50" class="body" id="inquiry"><?php if( !empty($_SESSION['body']) ){ echo $_SESSION['body']; } ?></textarea><br>
                 <input type="submit" name = "datapost" value="送信する"/><br>
             </form>
+        </div>
+    </div>
+    <div class="main">
+        <div class="contacts-data">
+            <table>
+                <tr>
+                    <th>氏名</th><th>フリガナ</th><th>電話番号</th><th>メールアドレス</th><th>お問い合わせ内容</th>
+                </tr>
+                <?php foreach($contacts as $contact): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($contact['name']) ?></td>   
+                        <td><?= htmlspecialchars($contact['kana']) ?></td>   
+                        <td><?= htmlspecialchars($contact['tel']) ?></td>   
+                        <td><?= htmlspecialchars($contact['email']) ?></td>   
+                        <td><?= nl2br(htmlspecialchars(($contact['body']))) ?></td>   
+                    </tr>
+                <?php endforeach; ?>
+            </table>
         </div>
     </div>
     <?php include("footer.php") ?>

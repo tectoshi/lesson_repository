@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /* reset */
 body, h1, h2, h3, h4, h5, h6, p, address,
-ul, ol, li, dl, dt, dd, img, form, table, tr, th, td {
+ul, ol, li, dl, dt, dd, img, form {
 	margin: 0;
 	padding: 0;
 	border: none;
