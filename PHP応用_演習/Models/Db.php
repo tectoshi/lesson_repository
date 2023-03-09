@@ -7,8 +7,10 @@ class Db {
     public function __construct($dbh = null) {
         if(!$dbh) { // 接続情報が存在しない場合
             try {
-                $this->dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_HOST. ';charset=utf8', DB_USER, DB_PASSWD);
+                $this->dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_HOST. ';charset=utf8', DB_USER, DB_PASSWD,[
+                ]);
                 // 接続成功
+            
             } catch (PDOException $e) {
                 echo "接続失敗: " . $e->getMessage() . "\n";
                 exit();

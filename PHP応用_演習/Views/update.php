@@ -1,19 +1,20 @@
 <?php
-//ダイレクトアクセス禁止
-$referer = $_SERVER['HTTP_REFERER'];
-$url = 'contact.php';
-if(!strstr($referer,$url)){
-  header('Location:index.php');
-  exit;
-}
 require_once('../Controllers/ContactController.php');
-// エスケープ処理
 session_start();
+// エスケープ処理
+$id  = htmlspecialchars($_POST['id'], ENT_QUOTES, "UTF-8");
 $_SESSION['name']  = htmlspecialchars($_POST['name'], ENT_QUOTES, "UTF-8");
 $_SESSION['kana']  = htmlspecialchars($_POST['kana'], ENT_QUOTES, "UTF-8");
 $_SESSION['tel']   = htmlspecialchars($_POST['tel'], ENT_QUOTES, "UTF-8");
 $_SESSION['email'] = htmlspecialchars($_POST['email'], ENT_QUOTES, "UTF-8");
 $_SESSION['body']  = htmlspecialchars($_POST['body'], ENT_QUOTES, "UTF-8");
+//ダイレクトアクセス禁止
+$referer = $_SERVER['HTTP_REFERER'];
+$url = 'edit.php?id='. $id;
+if(!strstr($referer,$url)){
+  header('Location:index.php');
+  exit;
+}
 // バリデーション実行
 $e = new ContactController();
 $e = $e->validate();
@@ -30,8 +31,9 @@ if(!empty($e)){
     <?php include("header.php") ?>
     <div class="contacts">
         <div class="contacts-main">
-        <h1>確認画面</h1>
-            <form action='complete.php' method="post">
+        <h1>更新画面</h1>
+            <form action='updateComplete.php' method="post">
+                <input type="hidden" name="id" value="<?php echo $id ?>"/>
                 <label>氏名</label><br>
                   <p><?php echo $_SESSION['name']?></p>
                   <input type="hidden" name="name" value="<?php echo $_SESSION['name']?>"/>
@@ -47,9 +49,8 @@ if(!empty($e)){
                 <label>お問い合わせ内容</label><br>
                   <p><?php echo nl2br($_SESSION['body'])?></p>
                   <input type="hidden" name="body" value="<?php echo $_SESSION['body']?>"/><br>
-                  <p>上記の内容でよろしいですか？</p>
-                <input type="button" onclick="location.href='contact.php'" value="キャンセル">
-                <input type="submit" name ="datapost" value="送信"/>
+                <input type="button" onclick="location.href='edit.php?id=<?php echo $id ?>'" value="キャンセル">
+                <input type="submit" name ="datapost" value="更新"/>
             </form>
         </div>
     </div>

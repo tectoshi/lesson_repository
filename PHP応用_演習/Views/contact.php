@@ -1,10 +1,19 @@
 <?php
 require_once('../Controllers/ContactController.php');
 session_start();
+//バリデーション実行
 if(!empty($_SESSION)){
     $e = new ContactController();
-    $e = $e->validation();
+    $e = $e->validate();
 }
+//お問い合わせページ更新時初期化
+$referer = $_SERVER['HTTP_REFERER'];
+$url = 'contact.php';
+if(strstr($referer,$url) || strstr($referer,'edit.php') || strstr($referer,'update.php')){
+  $_SESSION = [];
+}
+
+//dbから一覧データ取得
 $contactAll = new Contact();
 $contacts = $contactAll->findAll();
 ?>
@@ -35,7 +44,7 @@ $contacts = $contactAll->findAll();
                 <input type="text" name="email" class="email" id="email" value="<?php if( !empty($_SESSION['email']) ){ echo $_SESSION['email']; } ?>"/><br>
                 <label>お問い合わせ内容</label><br>
                 <textarea name="body" rows="5" cols="50" class="body" id="inquiry"><?php if( !empty($_SESSION['body']) ){ echo $_SESSION['body']; } ?></textarea><br>
-                <input type="submit" name = "datapost" value="送信する"/><br>
+                <input type="submit" name = "datapost" value="送信"/><br>
             </form>
         </div>
     </div>
@@ -43,7 +52,7 @@ $contacts = $contactAll->findAll();
         <div class="contacts-data">
             <table>
                 <tr>
-                    <th>氏名</th><th>フリガナ</th><th>電話番号</th><th>メールアドレス</th><th>お問い合わせ内容</th>
+                    <th>氏名</th><th>フリガナ</th><th>電話番号</th><th>メールアドレス</th><th>お問い合わせ内容</th><th></th>
                 </tr>
                 <?php foreach($contacts as $contact): ?>
                     <tr>
@@ -52,6 +61,7 @@ $contacts = $contactAll->findAll();
                         <td><?= htmlspecialchars($contact['tel']) ?></td>   
                         <td><?= htmlspecialchars($contact['email']) ?></td>   
                         <td><?= nl2br(htmlspecialchars(($contact['body']))) ?></td>   
+                        <td><input type="button" onclick="location.href='edit.php?id=<?= htmlspecialchars($contact['id']) ?>'" value="編集"></td>   
                     </tr>
                 <?php endforeach; ?>
             </table>

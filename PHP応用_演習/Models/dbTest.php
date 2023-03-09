@@ -11,18 +11,3 @@ function dbConnect()
   }
   return $dbh;
 }
-
-function getAllContact()
-{
-  $dbh = dbConnect();
-  //sql文の準備
-  $sql = 'SELECT * FROM contact';
-  //sql文の実行
-  $stmt = $dbh->query($sql);
-  //sqlの結果を受けとる
-  $result = $stmt->fetchall(PDO::FETCH_ASSOC);
-  return $result;
-  $dbh = null;
-}
-
-?>

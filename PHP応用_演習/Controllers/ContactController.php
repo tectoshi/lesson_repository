@@ -34,7 +34,7 @@ class ContactController
         ];
         return $params;
     }
-    public function validation()
+    public function validate()
     {
         $contacts = $_SESSION;
         $e = $this->e;
@@ -75,5 +75,10 @@ class ContactController
     {
         $contacts = $this->request['post'];
         $this->Contact->create($contacts);
+    }
+    public function update()
+    {
+        $contacts = $this->request['post'];
+        $this->Contact->update($contacts);
     }
 }
