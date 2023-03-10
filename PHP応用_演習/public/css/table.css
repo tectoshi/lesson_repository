@@ -1,0 +1,16 @@
+table,
+tr,
+td,
+th {
+	border: 1px solid black;
+	padding: 5px;
+}
+
+th{
+	color: white;
+	background-color: black;
+	border-color: white;
+}
+td {
+background-color: rgb(250, 246, 246);
+}
