@@ -1,4 +1,5 @@
 <?php
+//ダイレクトアクセス禁止
 $referer = $_SERVER['HTTP_REFERER'];
 $url = 'confirmation.php';
 if(!strstr($referer,$url)){

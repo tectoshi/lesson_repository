@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if(elemValue.length === 0) {
             createError(elem, '氏名の入力は必須です');
             e.preventDefault();
-          }else if(elemValue.length > 11 ){
+          }else if(elemValue.length > 10 ){
             createError(elem, '氏名は10文字以内でご入力ください');
             e.preventDefault();
           }
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if(elemValue.length === 0) {
             createError(elem, 'フリガナの入力は必須です');
             e.preventDefault();
-          }else if(elemValue.length > 11 ){
+          }else if(elemValue.length > 10 ){
             createError(elem, 'フリガナは10文字以内でご入力ください');
             e.preventDefault();
           }

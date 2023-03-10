@@ -31,7 +31,7 @@ if(!empty($e)){
     <?php include("header.php") ?>
     <div class="contacts">
         <div class="contacts-main">
-        <h1>更新画面</h1>
+        <h1>更新確認画面</h1>
             <form action='updateComplete.php' method="post">
                 <input type="hidden" name="id" value="<?php echo $id ?>"/>
                 <label>氏名</label><br>

@@ -52,7 +52,7 @@ $contacts = $contactAll->findAll();
         <div class="contacts-data">
             <table>
                 <tr>
-                    <th>氏名</th><th>フリガナ</th><th>電話番号</th><th>メールアドレス</th><th>お問い合わせ内容</th><th></th>
+                    <th>氏名</th><th>フリガナ</th><th>電話番号</th><th>メールアドレス</th><th>お問い合わせ内容</th><th></th><th></th>
                 </tr>
                 <?php foreach($contacts as $contact): ?>
                     <tr>
@@ -62,6 +62,7 @@ $contacts = $contactAll->findAll();
                         <td><?= htmlspecialchars($contact['email']) ?></td>   
                         <td><?= nl2br(htmlspecialchars(($contact['body']))) ?></td>   
                         <td><input type="button" onclick="location.href='edit.php?id=<?= htmlspecialchars($contact['id']) ?>'" value="編集"></td>   
+                        <td><input type="button" onclick="deleteClick(<?php echo htmlspecialchars($contact['id'])?>);"value="削除" id="deletebtn"></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

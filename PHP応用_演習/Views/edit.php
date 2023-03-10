@@ -1,17 +1,21 @@
 <?php
 require_once('../Controllers/ContactController.php');
 session_start();
+//ダイレクトアクセス禁止
+$referer = $_SERVER['HTTP_REFERER'];
+if(!(strstr($referer,'contact.php') || strstr($referer,'update.php'))){
+  header('Location:index.php');
+}
 //バリデーション実行
+$contacts = new ContactController();
 if(!empty($_SESSION)){
-    $e = new ContactController();
-    $e = $e->validate();
+    $e = $contacts->validate();
 }
 //詳細情報取得
   $id = $_GET['id'];
   if(empty($id)){
     header('Location:index.php');
   }
-  $contacts = new Contact;
   $contact = $contacts->findOne($id);
 ?>
 

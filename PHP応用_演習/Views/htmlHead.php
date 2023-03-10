@@ -12,4 +12,5 @@
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     <script defer src="../public/js/index.js"></script>
     <script defer src="../public/js/validation.js"></script>
+    <script defer src="../public/js/delete.js"></script>
 </head>

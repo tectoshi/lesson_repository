@@ -81,4 +81,13 @@ class ContactController
         $contacts = $this->request['post'];
         $this->Contact->update($contacts);
     }
+    public function findOne($id)
+    {
+        $contact = $this->Contact->findOne($id);
+        return $contact;
+    }
+    public function delete($id)
+    {
+        $contact = $this->Contact->delete($id);
+    }
 }

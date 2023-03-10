@@ -19,19 +19,6 @@ class Contact extends Db {
     }
 
     /**
-     * playersテーブルから全データ数を取得
-     *
-     * @return Int $count 全選手の件数
-     */
-    public function countAll():Int {
-        $sql = 'SELECT count(*) as count FROM players';
-        $sth = $this->dbh->prepare($sql);
-        $sth->execute();
-        $count = $sth->fetchColumn();
-        return $count;
-    }
-
-    /**
      * contactsテーブルに投稿内容の保存
      */    
     public function create($contacts)
@@ -57,6 +44,9 @@ class Contact extends Db {
             header('Location:../Views/contact.php');
         }
     }
+    /**
+     * contactsテーブルから詳細情報取得
+     */  
     public function findOne($id)
     {
         $dbh = $this->dbh;
@@ -70,6 +60,9 @@ class Contact extends Db {
         }
         return $result;
     }
+    /**
+     * contactsテーブルに更新内容の保存
+     */  
     public function update($contacts)
     {
         $dbh = $this->dbh;
@@ -93,6 +86,17 @@ class Contact extends Db {
              $dbh->rollback();
              header('Location:../Views/contact.php');
         }
+    }
+    /**
+     * contactsテーブルから削除
+     */  
+    public function delete($id)
+    {
+        $dbh = $this->dbh;
+        $sql = 'DELETE FROM contacts WHERE id = :id';
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(':id', (int)$id, PDO::PARAM_INT);
+        $stmt->execute();
     }
 }
 
